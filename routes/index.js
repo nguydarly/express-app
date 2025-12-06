@@ -1,14 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/userController');
+import { Router } from 'express';
+import { getUser,createUser } from '../controllers/userController.js';
+import { namechanger } from '../middleware/loggers.js';
 
-// Root route
-router.get('/', (req, res) => {
-  res.send('Hello from Express routes!');
-});
+const router = Router();
 
 // User routes
-router.get('/users/:id', userController.getUser);
-router.post('/users', userController.createUser);
+router.get('/:username', namechanger, getUser);
+router.post('/users', createUser);
 
-module.exports = router;
+export default router;
